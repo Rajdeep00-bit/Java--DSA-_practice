@@ -1,0 +1,271 @@
+***GIT***
+
+PART->1(setup git and  configure for creating global repos)
+
+check git version
+// git --version
+to see git configure list
+// git config --list
+
+To get the value of a specific configuration setting:
+git config --global user.name "Your Name"
+
+To set a configuration value globally (for all repositories):
+git config --global user.email "your.email@example.com"
+
+To delete a configuration setting:
+git config --unset user.name
+
+create local repository(it will create master branch)
+// git init
+
+create local repository(it will create main branch)
+// git init -b main
+
+command to remove git directory
+// Remove-Item -Recurse -Force .git
+
+check git status inside working repositories
+// git status
+
+by default, whe one create a file in working directory that will be a part of working directory and git should know that this should be a part of git, and should be in staging area
+
+when we create  git branch it create as a master branch
+
+
+PART->2(add_commit)
+add any file to git staging area
+// git add <filename>
+Unstage it
+// git rm --cached <file>...
+
+do commits
+// git commit -m "logical message"
+
+to know all the commits
+// git log
+
+***
+when you do any chages in your file and you want save commit it, at first you have add the file again
+to the staging area by using
+// git add <filename>
+once this file going into a staging area ,then we can commit 
+by using
+// git commit -m "logical message"
+***
+
+
+part 3-(commit without add)
+***if we want to directly commit any changes without add it to the staging area->
+// git commit -a -m "logical message"  
+this is how we use "-a" for changing from working directory to commit in git.
+ ***
+ part 4-(diff command)
+ this is the option to find the difference what you have worked and
+ what's already in the commit
+
+ // git diff(if your file is in the working directory)
+ /// git diff --stagged (when your file is in the staging area)
+
+part 5(git removed file)->
+now I have created Readme.md and creds.txt, and i want to take both
+to the staging area at once
+// git add.(after this all files will be marked by A automatically)
+
+after this you can again commit using 
+// git commit -m " logical message"
+
+
+in the creds.txt file i have wrote down my user credentials,
+and I don't want that to commit in my Github repository
+now I cacn do two this
+1. Manually delete it.
+But here is a problem if we run the command // git status
+there we can see that it is deleted from your working directory but not
+from the git stagibng area.
+
+2.We can use command 
+// git rm --cached creds.txt
+it will show that the file which you have enetered,is not getting added in git anymore
+and now you can delete it manually.
+and run the command 
+// git status
+and it will shows chages to be commited
+and run
+//git commit -m "logical message"
+
+
+
+***Github***
+Part 1:
+this is the paltform where,
+1.one can create own repository to push code from local 
+machine to open source
+2.check other public repository for gaining knowledge
+3.check the languages used in any perticular project
+4. no. of contributors etc.
+
+If we want coopy any repository from github to local machine,
+we can use this command
+// git clone "http link of that repository"(No need to use "")
+or,
+manually download the ZIP file
+
+Part 2:
+Create a remote repository
+1. Tap on the New button
+2.Give repository name
+3. Description(optional)
+4.choose the repository type(Public/Private)
+5.choose add Readme file(optional)
+6.choose license(Optional)
+7. Press "Create Repository"
+
+ create a new repository on the command line:
+ 1.run the first command to add readme file to the repository,
+ if not added previously.
+ 2.git init(if not use before)
+ 3.create branch as main, because by default it's initialized as
+ "Master"
+ for this run the command:
+ // git branch -M main
+
+part 3:
+ Now, we have a remote repository,we have to connect it to our
+ local repositorty:
+ for that:
+ we have to setup a SSH key, so that owner give the key once,
+ and it will auto detect the owner for every next commits
+ for this run:
+ // ssh-keygen -o
+ -> it will create private/public key rsa key pair.
+ -> it will ask passphrase, just simply press enter
+ -> again it will ask same passphrase,again simply press enter
+ **Now if you want to see the .ssh file direcrtory**
+ -> Go to the main file directory,
+ // cd your directory path
+ where the .ssh file get created
+ -> enter
+ // dir(windows)/ ls(Macos)
+ -> find the .ssh file is already exist and step-into the 
+ .ssh file directory,by using 
+ // cd .ssh
+ -> open the .ssh file directory
+ ->You will get the inside it and you have to open it by using
+ // cat id_rsa.pub
+-> and you will get your rsa key
+
+Now,
+1. Copy the entire ssh key.
+2. Go to your Github profile setting
+3.Go to SSH and GPG keys
+4.Press New-ssh-key
+5.Give a title to the new SSH key
+6.paste the SSH key into the key section
+7.Press "Add SSH key"
+8. Go back to the original project directory you were working in
+
+part 4:
+ now we will connect the remote repository to the origin 
+ for SSH
+ ->
+ Simply copy the command under "git branch -M main"
+ ->paste it to the terminal and press enter.
+
+ part 5:
+ Now, you can your repository to github by using->
+ // git push -u origin main
+ --before prociding it will ask for permission,
+ and you have to type yes.
+ and code push to gihub repo will began
+
+ part 6:
+ If we write more code/add any file to local repo we have to
+ commit it using 
+ // git commit -a -m "logical message"
+ Now, it get commit to the git, but don't get updated to
+ the github repo.
+ So, now we will do is->
+ run a command->
+ // git push origin main
+
+ Now the updation will reflect in the github repo
+
+ part 7:
+ If we want see commits from the github repo, as well as
+ the individual version on or before that commit.
+ part 8:
+ If we want  to see any repo's origin we can see by using
+ // git remote -v 
+ and it will show fetch && push origin
+ (By default the remote is set as origin we can set it with another name also.')
+ 
+
+ Part 9(Github Tags):
+ if we want to see any tags inside repo, we can use
+ // git tag(it will show all the tags, if you didn't created a tag
+ it will show nothing.)
+  So, at first create a tag:
+   There are two types of tagging,
+   -> Annotated 
+   -> Lightweight
+   if you want  the user get to know every single information
+   about the individual repo's tag, can run
+   // git tag -a v1.0/1.0(your choice) -m "logical message for release"
+   and your tagging will be done.
+
+   if you again want to see the tag, just simply 
+   type// git tag .
+
+   now if you want to see details about
+   // git show (version you have given to the tag)
+
+   Still now, the tag is created inside the working repo, but
+   didn't get pushed to the github repo, so for that,
+   we have to write
+   ->git push origin (your tag version name)
+   Now it will be reflected to your github repo
+
+part 10:
+   <Clone github repository>
+-> Open terminal
+-> Run the command
+// git clone Http(-of that repo you want to clone)
+->open it in VS code or in another IDE
+-> If you want to see all the commits and messages in one line, use
+// git log --pretty=oneline
+ '
+ (Creating new branch && Switchinfg between branches)->
+now if we want to work on that repo we have to create a branch using
+// git checkout -b (your desired branch name)
+or,
+git switch -b (your desired branch name)
+it will popup a message switched to a new branch
+If you want to know how many branches do you have, simply run->
+
+// git branch
+// git branch --all
+
+From now you are going to work in a new branch and all the new commits 
+will go inside the new barnch
+we can see using
+// git log
+
+
+ If we want toggle between two or more branches
+ // git switch (branch name)
+
+delete any branch
+
+// git branch -d (your desired branch name)
+
+push branch to github->
+ 
+ git push origin (your desired branch name)
+
+
+ part 11:
+ (Merge main and another branches):
+ -> go to the main branch
+ type
+ // git merge (branch name)
